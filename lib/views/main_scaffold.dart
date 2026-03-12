@@ -4,6 +4,7 @@ import 'projects_grouped_view.dart';
 import 'users_analytics_view.dart';
 import 'heat_view.dart';
 import 'activity_dashboard_view.dart';
+import 'monthly_heatmap_view.dart';
 
 class MainScaffold extends StatefulWidget {
   const MainScaffold({super.key});
@@ -18,6 +19,7 @@ class _MainScaffoldState extends State<MainScaffold> {
   final List<Widget> _views = [
     const ProjectsGroupedView(),
     const UsersAnalyticsView(),
+    const MonthlyHeatmapView(),
     const HeatView(),
     const ActivityDashboardView(),
   ];
@@ -28,6 +30,10 @@ class _MainScaffoldState extends State<MainScaffold> {
       body: _views[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
+        type: BottomNavigationBarType.fixed, // Ensure icons and labels show correctly for > 3 items
+        selectedItemColor: const Color(0xFF7AA2F7),
+        unselectedItemColor: const Color(0xFFA9B1D6),
+        backgroundColor: const Color(0xFF1F2335), // Match app theme if not globally set
         onTap: (index) {
           setState(() {
             _currentIndex = index;
@@ -45,6 +51,11 @@ class _MainScaffoldState extends State<MainScaffold> {
             label: 'Team',
           ),
           BottomNavigationBarItem(
+            icon: Icon(Icons.calendar_month_outlined),
+            activeIcon: Icon(Icons.calendar_month),
+            label: 'Heatmap',
+          ),
+          BottomNavigationBarItem(
             icon: Icon(Icons.local_fire_department_outlined),
             activeIcon: Icon(Icons.local_fire_department),
             label: 'Activity Heat',
@@ -59,3 +70,4 @@ class _MainScaffoldState extends State<MainScaffold> {
     );
   }
 }
+
